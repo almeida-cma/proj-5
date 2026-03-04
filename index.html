@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMA 05 - Organização e Documentação</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #0f172a; color: #fff; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        
+        .cabecalho {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-left: 5px solid #f1c40f;
+        }
+        .logo { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+        .badge { background: rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 30px; display: inline-block; }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            background: rgba(255,255,255,0.05);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+        .nav a:hover { background: #3498db; transform: translateY(-3px); }
+        .nav a.ativo { background: #f1c40f; color: #0f172a; font-weight: bold; }
+        
+        .secao {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+        }
+        .secao-markdown { border-left-color: #2b5b84; }
+        .secao-docs { border-left-color: #f1c40f; }
+        .secao-teste { border-left-color: #27ae60; }
+        
+        .titulo-secao {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .icone {
+            width: 50px;
+            height: 50px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .estrutura-pastas {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: monospace;
+            border: 1px solid #3498db;
+            margin: 20px 0;
+        }
+        .pasta { color: #f1c40f; }
+        .html { color: #e34c26; }
+        .css { color: #264de4; }
+        .js { color: #f0db4f; }
+        .md { color: #2b5b84; }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .card {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .card-ok { border-left: 4px solid #27ae60; }
+        .card-erro { border-left: 4px solid #e74c3c; }
+        
+        .tabela {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .tabela th {
+            background: #1e293b;
+            padding: 12px;
+            text-align: left;
+        }
+        .tabela td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .status-ok { color: #27ae60; }
+        .status-pendente { color: #e74c3c; }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #27ae60;
+        }
+        
+        .progresso {
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        .barra { height: 100%; background: #27ae60; width: 0%; transition: 0.5s; }
+        
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+            transition: 0.3s;
+        }
+        .btn:hover { background: #2980b9; transform: translateY(-2px); }
+        .btn-markdown { background: #2b5b84; }
+        .btn-docs { background: #f1c40f; color: #0f172a; }
+        
+        .badge-certo {
+            background: rgba(39,174,96,0.2);
+            border: 1px solid #27ae60;
+            color: #27ae60;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 2px;
+        }
+        .badge-errado {
+            background: rgba(231,76,60,0.2);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 2px;
+            text-decoration: line-through;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- CABEÇALHO -->
+        <header class="cabecalho">
+            <div class="logo"><i class="fas fa-folder-open"></i> TEMA 05</div>
+            <p style="font-size: 1.2rem; margin-bottom: 10px;">Organização, Documentação e Trabalho Colaborativo</p>
+            <span class="badge"><i class="fas fa-check-circle"></i> README | Estrutura | Testes</span>
+        </header>
+
+        <!-- NAVEGAÇÃO -->
+        <nav class="nav">
+            <a href="#">Sumário</a>
+            <a href="https://almeida-cma.github.io/proj-1/">TEMA 01</a>
+            <a href="https://almeida-cma.github.io/proj-2/">TEMA 02</a>
+            <a href="https://almeida-cma.github.io/proj-3/">TEMA 03</a>
+            <a href="https://almeida-cma.github.io/proj-4/">TEMA 04</a>
+            <a href="#" class="ativo">TEMA 05</a>
+        </nav>
+
+        <!-- SEÇÃO 1: ESTRUTURA DE PASTAS -->
+        <section class="secao">
+            <div class="titulo-secao">
+                <div class="icone"><i class="fas fa-folder-tree"></i></div>
+                <h2>📁 Estrutura de Pastas Profissional</h2>
+            </div>
+            
+            <div class="estrutura-pastas">
+                <div><span class="pasta">📂 agencia-noticias/</span></div>
+                <div style="margin-left: 20px;">
+                    <div>📄 <span class="html">index.html</span></div>
+                    <div>📁 <span class="pasta">css/</span> → 📄 <span class="css">estilo.css</span></div>
+                    <div>📁 <span class="pasta">js/</span> → 📄 <span class="js">script.js</span></div>
+                    <div>📁 <span class="pasta">imagens/</span> → 📄 formatura.jpg, feira.jpg, futebol.jpg</div>
+                    <div>📁 <span class="pasta">noticias/</span> → 📄 noticia1.html, noticia2.html, noticia3.html</div>
+                    <div>📄 <span class="md">README.md</span></div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+                <div>
+                    <h4 style="color: #27ae60; margin-bottom: 10px;">✅ Nomes corretos:</h4>
+                    <span class="badge-certo">index.html</span>
+                    <span class="badge-certo">estilo.css</span>
+                    <span class="badge-certo">formatura-2026.jpg</span>
+                </div>
+                <div>
+                    <h4 style="color: #e74c3c; margin-bottom: 10px;">❌ Nomes errados:</h4>
+                    <span class="badge-errado">novo (1).html</span>
+                    <span class="badge-errado">Minha Imagem.JPG</span>
+                    <span class="badge-errado">foto final.jpg</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: README E MARKDOWN -->
+        <section class="secao secao-markdown">
+            <div class="titulo-secao">
+                <div class="icone"><i class="fas fa-markdown"></i></div>
+                <h2>📝 README.md - O Cartão de Visitas do Projeto</h2>
+            </div>
+            
+            <div style="background: #0f172a; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                <h4 style="margin-bottom: 15px;">📋 Sintaxe Básica Markdown:</h4>
+                <div class="grid-2">
+                    <div>
+                        <p><code># Título 1</code> → Título principal</p>
+                        <p><code>## Título 2</code> → Subtítulo</p>
+                        <p><code>**negrito**</code> → <strong>negrito</strong></p>
+                        <p><code>*itálico*</code> → <em>itálico</em></p>
+                    </div>
+                    <div>
+                        <p><code>- item</code> → Lista</p>
+                        <p><code>[texto](url)</code> → <a href="#" style="color:#3498db;">link</a></p>
+                        <p><code>![alt](imagem.jpg)</code> → Imagem</p>
+                        <p><code>> citação</code> → Citação</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h4 style="margin-bottom: 10px;">📄 Template de README:</h4>
+            <div style="background: #0f172a; padding: 20px; border-radius: 10px; font-family: monospace; white-space: pre-wrap; font-size: 0.9rem;">
+# 📰 NOME DA AGÊNCIA
+
+## 📋 Sobre
+Descrição do projeto...
+
+## 👥 Equipe
+- Ana - Editora-chefe
+- Bruno - Webmaster
+
+## 🛠️ Tecnologias
+- HTML5, CSS3, JavaScript
+
+## 🔗 Links
+[Acesse o site](https://seuusuario.github.io/agencia-noticias)
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <button class="btn btn-markdown" onclick="copiarTemplate()">
+                    <i class="fas fa-copy"></i> Copiar Template
+                </button>
+                <button class="btn btn-markdown" onclick="baixarReadme()">
+                    <i class="fas fa-download"></i> Baixar README.md
+                </button>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: FEEDBACK CONSTRUTIVO -->
+        <section class="secao">
+            <div class="titulo-secao">
+                <div class="icone"><i class="fas fa-comments"></i></div>
+                <h2>💬 Feedback Construtivo</h2>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card card-ok">
+                    <h3 style="color: #27ae60;">✅ Construtivo</h3>
+                    <p style="margin: 10px 0;">"As cores combinam com o tema!"</p>
+                    <p style="margin: 10px 0;">"O link do podcast está quebrado, verifique o caminho."</p>
+                </div>
+                <div class="card card-erro">
+                    <h3 style="color: #e74c3c;">❌ Destrutivo</h3>
+                    <p style="margin: 10px 0;">"Seu site está feio"</p>
+                    <p style="margin: 10px 0;">"Isso tá errado"</p>
+                </div>
+            </div>
+            
+            <button class="btn" style="margin-top: 20px;" onclick="copiarModeloFeedback()">
+                <i class="fas fa-copy"></i> Copiar modelo de revisão
+            </button>
+        </section>
+
+        <!-- SEÇÃO 4: TABELA DE TESTES -->
+        <section class="secao secao-teste">
+            <div class="titulo-secao">
+                <div class="icone"><i class="fas fa-clipboard-list"></i></div>
+                <h2>✅ Checklist de Testes</h2>
+            </div>
+            
+            <table class="tabela">
+                <thead>
+                    <tr><th>Item</th><th>Status</th><th>✓</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Link notícia 1</td><td id="link1" class="status-pendente">Pendente</td><td><input type="checkbox" onchange="marcarLink(1, this.checked)"></td></tr>
+                    <tr><td>Link notícia 2</td><td id="link2" class="status-pendente">Pendente</td><td><input type="checkbox" onchange="marcarLink(2, this.checked)"></td></tr>
+                    <tr><td>Imagem formatura</td><td id="img1" class="status-pendente">Pendente</td><td><input type="checkbox" onchange="marcarImg(1, this.checked)"></td></tr>
+                    <tr><td>Imagem feira</td><td id="img2" class="status-pendente">Pendente</td><td><input type="checkbox" onchange="marcarImg(2, this.checked)"></td></tr>
+                    <tr><td>Vídeo reproduz</td><td id="video" class="status-pendente">Pendente</td><td><input type="checkbox" onchange="marcarVideo(this.checked)"></td></tr>
+                    <tr><td>Podcast reproduz</td><td id="audio" class="status-pendente">Pendente</td><td><input type="checkbox" onchange="marcarAudio(this.checked)"></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SEÇÃO 5: CHECKLIST FINAL -->
+        <section class="secao">
+            <div class="titulo-secao">
+                <div class="icone"><i class="fas fa-check-double"></i></div>
+                <h2>📋 Preparação para Apresentação</h2>
+            </div>
+            
+            <div id="checklist">
+                <div class="checklist-item"><input type="checkbox" id="c1" onchange="atualizarProgresso()"><label for="c1">📁 Estrutura de pastas organizada</label></div>
+                <div class="checklist-item"><input type="checkbox" id="c2" onchange="atualizarProgresso()"><label for="c2">📄 README.md criado</label></div>
+                <div class="checklist-item"><input type="checkbox" id="c3" onchange="atualizarProgresso()"><label for="c3">📰 3 notícias escritas</label></div>
+                <div class="checklist-item"><input type="checkbox" id="c4" onchange="atualizarProgresso()"><label for="c4">🎥 Vídeo publicado</label></div>
+                <div class="checklist-item"><input type="checkbox" id="c5" onchange="atualizarProgresso()"><label for="c5">🎙️ Podcast publicado</label></div>
+                <div class="checklist-item"><input type="checkbox" id="c6" onchange="atualizarProgresso()"><label for="c6">🔗 Todos os links testados</label></div>
+                <div class="checklist-item"><input type="checkbox" id="c7" onchange="atualizarProgresso()"><label for="c7">📱 Site responsivo</label></div>
+                <div class="checklist-item"><input type="checkbox" id="c8" onchange="atualizarProgresso()"><label for="c8">🌐 Publicado no GitHub Pages</label></div>
+            </div>
+            
+            <div class="progresso"><div id="barra" class="barra"></div></div>
+            <p id="progresso-texto">0/8 concluído</p>
+            
+            <button class="btn" onclick="compartilharProgresso()"><i class="fas fa-share"></i> Compartilhar</button>
+        </section>
+
+        <!-- SEÇÃO 6: PRÓXIMA AULA -->
+        <section style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 30px; border-radius: 15px; text-align: center;">
+            <h2 style="color: white; margin-bottom: 15px;">🚀 TEMA 06: Apresentação Final</h2>
+            <p style="margin-bottom: 20px;">Preparem roteiro de 5 minutos e testem tudo!</p>
+            <span style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 30px;">📌 Link do site pronto para compartilhar</span>
+        </section>
+
+        <!-- RODAPÉ -->
+        <footer>
+            <p>Projeto Integrador - Agência de Jornalismo Web</p>
+            <button onclick="quiz()" style="background: white; color: #0f172a; border: none; padding: 8px 20px; border-radius: 30px; cursor: pointer; margin-top: 10px;">
+                <i class="fas fa-gamepad"></i> Quiz Rápido
+            </button>
+        </footer>
+    </div>
+
+    <script>
+        // FUNÇÕES MARKDOWN
+        function copiarTemplate() {
+            const template = `# 📰 NOME DA AGÊNCIA\n\n## 📋 Sobre\nDescrição do projeto...\n\n## 👥 Equipe\n- Nome - Função\n\n## 🛠️ Tecnologias\n- HTML5, CSS3, JavaScript\n\n## 🔗 Links\n[Acesse o site](https://seuusuario.github.io/agencia-noticias)`;
+            navigator.clipboard.writeText(template).then(() => alert('📋 Template copiado!'));
+        }
+        
+        function baixarReadme() {
+            const template = `# 📰 NOME DA AGÊNCIA\n\n## 📋 Sobre\nDescrição do projeto...\n\n## 👥 Equipe\n- Nome - Função\n\n## 🛠️ Tecnologias\n- HTML5, CSS3, JavaScript\n\n## 🔗 Links\n[Acesse o site](https://seuusuario.github.io/agencia-noticias)`;
+            const blob = new Blob([template], { type: 'text/markdown' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'README.md';
+            a.click();
+        }
+        
+        function copiarModeloFeedback() {
+            const modelo = "✅ Pontos positivos:\n- \n- \n\n🔧 Sugestões:\n- \n- \n\n🐛 Erros:\n- \n-";
+            navigator.clipboard.writeText(modelo).then(() => alert('📋 Modelo copiado!'));
+        }
+        
+        // FUNÇÕES DE TESTES
+        function marcarLink(n, checked) {
+            document.getElementById(`link${n}`).innerHTML = checked ? '<span class="status-ok">✅ OK</span>' : '<span class="status-pendente">❌ Pendente</span>';
+        }
+        
+        function marcarImg(n, checked) {
+            document.getElementById(`img${n}`).innerHTML = checked ? '<span class="status-ok">✅ OK</span>' : '<span class="status-pendente">❌ Pendente</span>';
+        }
+        
+        function marcarVideo(checked) {
+            document.getElementById('video').innerHTML = checked ? '<span class="status-ok">✅ OK</span>' : '<span class="status-pendente">❌ Pendente</span>';
+        }
+        
+        function marcarAudio(checked) {
+            document.getElementById('audio').innerHTML = checked ? '<span class="status-ok">✅ OK</span>' : '<span class="status-pendente">❌ Pendente</span>';
+        }
+        
+        // FUNÇÕES DE PROGRESSO
+        function atualizarProgresso() {
+            const checks = document.querySelectorAll('#checklist input');
+            let marcados = 0;
+            checks.forEach(c => { if(c.checked) marcados++; });
+            const progresso = (marcados / 8) * 100;
+            document.getElementById('barra').style.width = progresso + '%';
+            document.getElementById('progresso-texto').innerText = marcados + '/8 concluído';
+        }
+        
+        function compartilharProgresso() {
+            const checks = document.querySelectorAll('#checklist input');
+            let marcados = 0;
+            checks.forEach(c => { if(c.checked) marcados++; });
+            const msg = `📊 Meu projeto está ${marcados * 12.5}% pronto! (${marcados}/8)`;
+            navigator.clipboard.writeText(msg).then(() => alert('📋 Progresso copiado!'));
+        }
+        
+        // QUIZ
+        function quiz() {
+            const perguntas = [
+                "Qual extensão do README?",
+                "Como fazer título em Markdown?",
+                "Onde colocar imagens?",
+                "Nome correto de arquivo?"
+            ];
+            const respostas = [
+                ".md",
+                "# Título",
+                "Pasta /imagens/",
+                "formato: nome-com-hifen.jpg"
+            ];
+            const i = Math.floor(Math.random() * perguntas.length);
+            alert(`🎯 ${perguntas[i]}\n\n✅ Resposta: ${respostas[i]}`);
+        }
+    </script>
+</body>
+</html>

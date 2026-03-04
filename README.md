@@ -78,3 +78,7 @@ Este projeto foi desenvolvido para fins educacionais.
 ---
 
 📌 **Última atualização:** março/2026
+
+---
+
+🔗 [Pesquisa](https://forms.gle/U62yA4cPHLw3ykpS6)
